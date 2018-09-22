@@ -1,0 +1,8 @@
+.gitignore
+.idea/
+JobTitleParser.egg-info/
+raw/
+setup.py
+tests/
+training/
+venv/

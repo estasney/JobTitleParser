@@ -11,7 +11,7 @@ from collections import OrderedDict
 #     (\__/) ||
 #     (•ㅅ•) ||
 #     / 　 づ
-LABELS = ['SeniorityTerm', 'TitleTerm', 'AndTerm', 'SkillTerm', 'DetailTerm', 'NullTerm']  # The labels should be a list of strings
+LABELS = ['SeniorityTerm', 'TitleTerm', 'AndTerm', 'SkillTerm', 'DetailTerm', 'HierarchyTerm', 'NullTerm']
 
 # ***************** OPTIONAL CONFIG ***************************************************
 PARENT_LABEL = 'TokenSequence'  # the XML tag for each labeled string
@@ -88,12 +88,17 @@ def tokenize(raw_string):
 #     (\__/) ||
 #     (•ㅅ•) ||
 #     / 　 づ
+
+PREPOSITIONS = {'for', 'to', 'of', 'on'}
+
+
 def tokens2features(tokens):
     # this should call tokenFeatures to get features for individual tokens,
     # as well as define any features that are dependent upon tokens before/after
 
     feature_sequence = [tokenFeatures(tokens[0])]
     previous_features = feature_sequence[-1].copy()
+
 
     for token in tokens[1:]:
         # set features for individual tokens (calling tokenFeatures)
@@ -133,8 +138,8 @@ def tokenFeatures(token):
         'length': len(token),
         'case': casing(token),
         'roman': set('XVI').issuperset(token),
-        'digits': digits(token)
-
+        'digits': digits(token),
+        'prepositions': token in PREPOSITIONS
     }
 
     return features
