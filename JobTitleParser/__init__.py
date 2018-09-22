@@ -11,7 +11,7 @@ from collections import OrderedDict
 #     (\__/) ||
 #     (•ㅅ•) ||
 #     / 　 づ
-LABELS = ['SeniorityTerm', 'TitleTerm', 'AndTerm', 'SkillTerm', 'DetailTerm', 'HierarchyTerm', 'NullTerm']
+LABELS = ['AssignedRole', 'RoleModifier', 'RoleKeyword', 'NullTerm']
 
 # ***************** OPTIONAL CONFIG ***************************************************
 PARENT_LABEL = 'TokenSequence'  # the XML tag for each labeled string
@@ -74,7 +74,7 @@ def tokenize(raw_string):
         except:
             raw_string = str(raw_string)
 
-    re_tokens = re.compile(r"([A-z-()&/]+)")
+    re_tokens = re.compile(r"([A-z-()&/+]+)")
     tokens = re_tokens.findall(raw_string)
 
     if not tokens:
